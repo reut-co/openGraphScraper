@@ -2,7 +2,7 @@ var request = require('request'),
   cheerio = require('cheerio'),
   charset = require('charset'),
   iconv = require('iconv-lite'),
-  url = require('url'),
+  url = require('url-parse'),
   _ = require('lodash'),
   jschardet = require('jschardet');
 
@@ -351,7 +351,7 @@ exports.getInfo = function (options, callback) {
       options.encoding = options.encoding || null;
       if (process.browser) {
         options.gzip = false;
-        options.protocol = url.parse(options.url).protocol;
+        options.protocol = new URL(options.url).protocol;
       }
       that.getOG(options, function (err, results, response) {
         if (results) {
